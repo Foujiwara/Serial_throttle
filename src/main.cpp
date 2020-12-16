@@ -13,6 +13,7 @@ uint16_t analogValueMinCalibRaw = 0;
 void setup()
 {
   Serial.begin(115200);
+  Serial2.begin(115200);
 
   pinMode(PIN_IN_BRAKE, INPUT);
   analogValueMinCalibRaw = analogRead(PIN_IN_BRAKE);
@@ -42,7 +43,7 @@ void loop()
 
   sprintf(print_buffer, "set speed %d",
           analogValue);
-  Serial.println(print_buffer);
+  Serial1.println(print_buffer);
 
   delay(10);
 }
