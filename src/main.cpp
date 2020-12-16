@@ -1,6 +1,10 @@
 #include <Arduino.h>
 
+#define DEBUG 0
+
 #define PIN_IN_BRAKE 34
+
+#define SECURITY_OFFSET 20
 
 int32_t analogValue = 0;
 uint16_t analogValueRaw = 0;
@@ -23,7 +27,7 @@ void loop()
 
   analogValueRaw = analogRead(PIN_IN_BRAKE);
 
-  analogValue = analogValueRaw - analogValueMinCalibRaw - 20;
+  analogValue = analogValueRaw - analogValueMinCalibRaw - SECURITY_OFFSET;
 
   //analogValue = analogValue / 1.8;
 
@@ -32,7 +36,9 @@ void loop()
   if (analogValue < 0)
     analogValue = 0;
 
+#if DEBUG
   Serial.println("analogValueRaw = " + (String)analogValueRaw + " / analogValueMinCalibRaw = " + analogValueMinCalibRaw);
+#endif
 
   sprintf(print_buffer, "set speed %d",
           analogValue);
