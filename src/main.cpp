@@ -24,7 +24,7 @@ void loop()
   analogValueRaw = analogRead(PIN_IN_BRAKE);
 
   analogValue = analogValueRaw - analogValueMinCalibRaw - 20;
-  
+
   //analogValue = analogValue / 1.8;
 
   if (analogValue > 1000)
@@ -32,8 +32,10 @@ void loop()
   if (analogValue < 0)
     analogValue = 0;
 
-  sprintf(print_buffer, "set speed %d / %d / %d",
-          analogValue, analogValueRaw, analogValueMinCalibRaw);
+  Serial.println("analogValueRaw = " + (String)analogValueRaw + " / analogValueMinCalibRaw = " + analogValueMinCalibRaw);
+
+  sprintf(print_buffer, "set speed %d",
+          analogValue);
   Serial.println(print_buffer);
 
   delay(10);
